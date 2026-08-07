@@ -1,0 +1,40 @@
+{
+  "name": "sailpoint-mcp-server",
+  "version": "0.1.0",
+  "description": "Model Context Protocol server for SailPoint Identity Security Cloud, built on the SailPoint TypeScript SDK",
+  "main": "dist/index.js",
+  "type": "commonjs",
+  "bin": {
+    "sailpoint-mcp-server": "dist/index.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc && chmod +x dist/index.js",
+    "watch": "tsc --watch",
+    "start": "node dist/index.js",
+    "typecheck": "tsc --noEmit",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "sailpoint",
+    "mcp",
+    "identity-security-cloud",
+    "model-context-protocol"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "sailpoint-api-client": "^2.1.13",
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "@types/node": "^26.1.2",
+    "typescript": "^7.0.2"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
