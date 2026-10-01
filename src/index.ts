@@ -2,6 +2,7 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 
+import { loadDotEnv } from "./env";
 import { redirectConsoleToStderr, log } from "./logger";
 import { createConfiguration } from "./sailpoint";
 import { registerSearchIdentities } from "./tools/searchIdentities";
@@ -10,6 +11,7 @@ async function main(): Promise<void> {
   // Before anything that might log: the SailPoint SDK writes diagnostics with
   // console.log, which would corrupt the JSON-RPC stream on stdout.
   redirectConsoleToStderr();
+  loadDotEnv();
 
   // Fail fast with a clear message instead of on the first tool call.
   createConfiguration();

@@ -16,19 +16,22 @@ npm run build
 
 ## Configuration
 
-Credentials are resolved by the SailPoint SDK, in this order:
-
-1. Environment variables — `SAIL_BASE_URL`, `SAIL_CLIENT_ID`, `SAIL_CLIENT_SECRET`
-2. `./config.json` — `{ "BaseURL": "...", "ClientId": "...", "ClientSecret": "..." }`
-
-Environment variables are the recommended path for an MCP server. Create a
+Credentials are read from `SAIL_BASE_URL`, `SAIL_CLIENT_ID` and
+`SAIL_CLIENT_SECRET`. At startup the server loads them from `.env` in the
+project root. Create a
 personal access token in your tenant under **Preferences → Personal Access
 Tokens**; it needs a role that can read identities (e.g. `sp:scopes:all` or
 an admin/helpdesk role).
 
 ```bash
-cp .env.example .env   # then fill it in and export the values
+cp .env.example .env   # then fill in your three values
+chmod 600 .env
 ```
+
+The server loads `.env` from its own project folder, so it works no matter which
+directory the MCP client launches it from. Keep the file private: it is
+gitignored, and `chmod 600 .env` makes it readable only by you. Variables set in
+your shell or in an MCP client's `env` block take precedence over `.env`.
 
 ## Running
 
@@ -49,12 +52,7 @@ claude mcp add sailpoint -- node /absolute/path/to/typescript-mcp-server/dist/in
   "mcpServers": {
     "sailpoint": {
       "command": "node",
-      "args": ["/absolute/path/to/sailpoint-mcp-server/dist/index.js"],
-      "env": {
-        "SAIL_BASE_URL": "https://your-tenant.api.identitynow.com",
-        "SAIL_CLIENT_ID": "...",
-        "SAIL_CLIENT_SECRET": "..."
-      }
+      "args": ["/absolute/path/to/sailpoint-mcp-server/dist/index.js"]
     }
   }
 }
